@@ -17,6 +17,10 @@ set incsearch
 set hlsearch
 set foldenable
 
+" don't indent return types in C/C++ function when return type is line above
+" function name
+set cinoptions+=t0
+
 filetype off
 
 " set the runtime path to include Vundle and initialize
@@ -32,6 +36,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'ervandew/supertab'
 Plugin 'Rip-Rip/clang_complete'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'keith/swift.vim'
+Plugin 'udalov/kotlin-vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -44,7 +50,7 @@ set shiftwidth=4
 set expandtab
 nnoremap <leader><space> :nohlsearch<CR>
 
-let g:clang_library_path='/usr/lib64/libclang.so'
+let g:clang_library_path='/usr/lib/libclang.so'
 
 " FINDING FILES:
 
