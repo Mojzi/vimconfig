@@ -14,9 +14,10 @@ nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>vsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
 
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-lua require'lspconfig'.clangd.setup{ on_attach=require'completion'.on_attach }
 
+lua require'lspconfig'.clangd.setup{ on_attach=require'completion'.on_attach }
 lua require'lspconfig'.kotlin_language_server.setup{ on_attach=require'completion'.on_attach }
+lua require'lspconfig'.gopls.setup{ on_attach=require'completion'.on_attach }
 
 " Java lsp config
 lua << EOF
@@ -50,4 +51,3 @@ if executable('clangd')
         autocmd FileType objcpp setlocal omnifunc=lsp#complete
     augroup end
 endif
-
