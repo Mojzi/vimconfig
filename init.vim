@@ -39,7 +39,8 @@ call plug#begin()
 
 " Neovim lsp
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -49,6 +50,7 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'keith/swift.vim'
 Plug 'udalov/kotlin-vim'
 
+Plug 'tikhomirov/vim-glsl'
 
 Plug 'itchyny/lightline.vim'
 call plug#end()
@@ -72,3 +74,5 @@ let g:netrw_liststyle=3
 
 let mapleader = " "
 
+nnoremap <leader>m :! cmake --build build<CR>
+nnoremap <leader>r :! ./build/test<CR>

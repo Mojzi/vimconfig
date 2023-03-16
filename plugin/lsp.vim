@@ -13,41 +13,62 @@ nnoremap <leader>vh :lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>vsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
 
+nnoremap <leader>vn :lua vim.lsp.diagnostic.goto_next()<CR>
+
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
-lua require'lspconfig'.clangd.setup{ on_attach=require'completion'.on_attach }
-lua require'lspconfig'.kotlin_language_server.setup{ on_attach=require'completion'.on_attach }
-lua require'lspconfig'.gopls.setup{ on_attach=require'completion'.on_attach }
+" lua require'lspconfig'.cmake.setup{}
+" lua require'lspconfig'.kotlin_language_server.setup{ on_attach=require'completion'.on_attach }
+" lua require'lspconfig'.gopls.setup{ on_attach=require'completion'.on_attach }
+" lua require'lspconfig'.clangd.setup{ cmd={"clangd", "--background-index", "--header-insertion=never"}; on_attach=require'completion'.on_attach; }
+
+"lua << EOF
+"    local lspconfig = require'lspconfig'
+"    local configs = require'lspconfig/configs'
+"    configs.clangd = {
+"        default_config = {
+"			cmd = { "clangd", "--background-index", "--header-insertion=never" };
+"            filetypes = {"cmake"};
+"			root_dir = function(fname)
+"                return util.root_pattern(".git", "compile_commands.json", "build")(fname) or util.path.dirname(fname)
+"            end;
+"		};
+"	}
+"            
+"    lspconfig.clangd.setup{ on_attach=require'completion'.on_attach }
+"EOF
+
+
 
 " Java lsp config
-lua << EOF
-local lspconfig = require'lspconfig'
-local configs = require'lspconfig/configs'
-configs.java_lsp = {
-	default_config = {
-		cmd = {'/home/sj/git/java-language-server/dist/lang_server_linux.sh'};
-		filetypes = {'java'};
-		root_dir = function(fname)
-		  return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
-		end;
-		settings = {};
-	  };
-}
-lspconfig.java_lsp.setup{ on_attach=require'completion'.on_attach }
-
-EOF
-
-if executable('clangd')
-    augroup lsp_clangd
-        autocmd!
-        autocmd User lsp_setup call lsp#register_server({
-                    \ 'name': 'clangd',
-                    \ 'cmd': {server_info->['clangd']},
-                    \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-                    \ })
-        autocmd FileType c setlocal omnifunc=lsp#complete
-        autocmd FileType cpp setlocal omnifunc=lsp#complete
-        autocmd FileType objc setlocal omnifunc=lsp#complete
-        autocmd FileType objcpp setlocal omnifunc=lsp#complete
-    augroup end
-endif
+"lua << EOF
+" local lspconfig = require'lspconfig'
+" local configs = require'lspconfig/configs'
+" configs.java_lsp = {
+" 	default_config = {
+" 		cmd = {'/home/sj/git/java-language-server/dist/lang_server_linux.sh'};
+" 		filetypes = {'java'};
+" 		root_dir = function(fname)
+" 		  return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+" 		end;
+" 		settings = {};
+" 	  };
+" }
+" lspconfig.java_lsp.setup{ on_attach=require'completion'.on_attach }
+" 
+" EOF
+" 
+" if executable('clangd')
+"     augroup lsp_clangd
+"         autocmd!
+"         autocmd User lsp_setup call lsp#register_server({
+"                     \ 'name': 'clangd',
+"                     \ 'cmd': {server_info->['clangd']},
+"                     \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+"                     \ })
+"         autocmd FileType c setlocal omnifunc=lsp#complete
+"         autocmd FileType cpp setlocal omnifunc=lsp#complete
+"         autocmd FileType objc setlocal omnifunc=lsp#complete
+"         autocmd FileType objcpp setlocal omnifunc=lsp#complete
+"     augroup end
+" endif
