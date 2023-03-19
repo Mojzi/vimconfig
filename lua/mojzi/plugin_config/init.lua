@@ -1,3 +1,6 @@
+require("mojzi.plugin_config.fugitive")
+require("mojzi.plugin_config.lsp")
 require("mojzi.plugin_config.nvim-tree")
 require("mojzi.plugin_config.nvim-treesitter")
 require("mojzi.plugin_config.telescope")
+require("mojzi.plugin_config.undotree")
